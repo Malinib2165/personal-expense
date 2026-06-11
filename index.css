@@ -1,0 +1,11 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    /* background-color: black !important;; */
+}
+
+/* App background */
+body{
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background-attachment: fixed;
+}

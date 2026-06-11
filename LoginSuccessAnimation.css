@@ -1,0 +1,159 @@
+.animation-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animation-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wallet-container {
+  perspective: 1200px;
+  transform: translateY(50px) scale(0.5);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+  animation: wallet-intro 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes wallet-intro {
+  to { transform: translateY(0) scale(1.1); opacity: 1; }
+}
+
+.wallet-container.expanding {
+  transform: scale(4);
+  opacity: 0;
+  filter: blur(8px);
+}
+
+.wallet-flap-group {
+  transform-origin: center 40px;
+  transition: transform 1.2s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.wallet-container.opening .wallet-flap-group,
+.wallet-container.expanding .wallet-flap-group {
+  transform: rotateX(155deg);
+}
+
+.particles-emitter {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.particle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+  animation: particle-burst 2.8s cubic-bezier(0.1, 0.8, 0.3, 1) var(--delay) forwards;
+}
+
+.particle.note {
+  width: 45px;
+  height: 22px;
+  background: #a5d6a7;
+  border: 1px solid #66bb6a;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  filter: drop-shadow(0 0 10px rgba(102, 187, 106, 0.4));
+  border-radius: 2px;
+}
+
+.particle.coin {
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle at 30% 30%, #ffee58, #fbc02d);
+  border-radius: 50%;
+  border: 1px solid #f9a825;
+  filter: drop-shadow(0 0 12px rgba(255, 238, 88, 0.5));
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.particle.icon-dollar::after { content: '$'; color: #1b5e20; font-weight: 800; font-size: 28px; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
+.particle.icon-chart::after { content: '📈'; font-size: 24px; filter: drop-shadow(0 0 5px white); }
+
+@keyframes particle-burst {
+  0% {
+    transform: translate(-50%, 0) scale(0) rotate(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(var(--x) - 50%), var(--y)) scale(1.1) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
+.success-status {
+  margin-top: 60px;
+  text-align: center;
+  color: #2d1b18;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  animation: status-fade 0.6s ease-out 0.4s both;
+}
+
+.success-status h2 { font-weight: 600; font-size: 1.5rem; margin-bottom: 8px; }
+.success-status p { opacity: 0.7; font-size: 1rem; }
+
+@keyframes status-fade {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wallet-svg {
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.2));
+}
+
+.wallet-flap-group circle {
+  animation: gold-shimmer 2s infinite alternate ease-in-out;
+}
+@keyframes gold-shimmer {
+  from { filter: brightness(1); } to { filter: brightness(1.2) saturate(1.2); }
+}
+
+.share-button {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10001;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.share-button:hover {
+  background: #fff;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.share-icon {
+  width: 20px;
+  height: 20px;
+  color: #5D4037;
+}
